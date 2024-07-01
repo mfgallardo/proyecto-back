@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const controller = require("../controllers/pacientes.controller");
+
 const pacientes = [
   { id: 1, nombre: "Maria", apellido: "Gomez" },
   { id: 2, nombre: "Juan", apellido: "Lopez" },
@@ -9,20 +11,10 @@ const pacientes = [
 ];
 
 // GET
-router.get("/", (req, res) => {
-  res.json(pacientes);
-});
+router.get("/", controller.index);
 
-// GET /pacientes/:id
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-
-  const paciente = pacientes.find((elemento) => elemento.id == parseInt(id));
-  if (!paciente) {
-    return res.status(404).json({ error: "No se encontró el paciente" });
-  }
-  res.send(paciente);
-});
+// GET un elemento
+router.get("/id:", controller.show);
 
 // POST
 router.post("/", (req, res) => {
@@ -30,16 +22,16 @@ router.post("/", (req, res) => {
 
   const id = pacientes[pacientes.length - 1].id + 1;
 
-  const nuevoPaciente = {
+  const paciente = {
     id: id,
     nombre: req.body.nombre,
     apellido: req.body.apellido,
   };
 
-  pacientes.push(nuevoPaciente);
+  pacientes.push(paciente);
   console.log("Paciente agregado:", nuevoPaciente); // Agregado para depuración
 
-  res.status(201).json(nuevoPaciente);
+  res.status(201).json(paciente);
 });
 
 // PUT /pacientes/:id
@@ -53,6 +45,7 @@ router.put("/:id", (req, res) => {
   }
 
   paciente.nombre = nombre;
+  paciente.apellido = apellido;
 
   res.json(paciente);
 });
