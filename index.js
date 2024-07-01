@@ -1,13 +1,10 @@
 const express = require("express");
 const app = express();
 const pacientesRouter = require("./routes/pacientes.router");
-
 const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use(express.json());
-
 app.use("/pacientes", pacientesRouter);
 //Otra opción
 //app.use("/pacientes", require("./routes/pacientes.router"));
