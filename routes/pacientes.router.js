@@ -7,7 +7,7 @@ const controller = require("../controllers/pacientes.controller");
 router.get("/", controller.index);
 
 // GET un elemento
-router.get("/id:", controller.show);
+router.get("/:id", controller.show);
 
 // POST
 router.post("/", controller.store);

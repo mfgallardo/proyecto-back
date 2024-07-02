@@ -34,22 +34,6 @@ const show = (req, res) => {
   });
 };
 
-// Traer un resultado
-
-/*const show = (req, res) => {
-  const { id } = req.params;
-
-  const sql = "SELECT * FROM patients WHERE id = ?";
-  db.query(sql, [id], (error, rows) => {
-    // console.log(rows);
-    if (error) {
-      console.log(error);
-      return res.status(500).json({ error: "Intente más tarde" });
-    }
-    res.json(rows[0]);
-  });
-};*/
-
 // Crear un paciente
 
 const store = (req, res) => {
@@ -80,6 +64,8 @@ const store = (req, res) => {
   );
 };
 
+// Modificar datos de un paciente
+
 const update = (req, res) => {
   const { id } = req.params;
   const {
@@ -93,7 +79,7 @@ const update = (req, res) => {
   } = req.body;
 
   const sql =
-    "UPDATE patients SET name = ?, surname = ?, email = ?, phone_number = ?, date_of_birth = ?, address = ?, national_id = ? WHERE patient_id = ?)";
+    "UPDATE patients SET name = ?, surname = ?, email = ?, phone_number = ?, date_of_birth = ?, address = ?, national_id = ? WHERE patient_id = ?";
   db.query(
     sql,
     [
@@ -123,6 +109,7 @@ const update = (req, res) => {
 };
 
 // Borrar un paciente
+
 const destroy = (req, res) => {
   const { id } = req.params;
 
